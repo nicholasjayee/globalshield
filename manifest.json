@@ -1,0 +1,103 @@
+{
+  "manifest_version": 3,
+  "name": "SentinelShield",
+  "version": "1.2.0",
+  "description": "Personal browser protection with network filtering, privacy controls, and site-level compatibility toggles.",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "tabs",
+    "privacy",
+    "contentSettings"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "main-world/config.js",
+        "main-world/bridge/event-bridge.js",
+        "main-world/device-guard.js",
+        "main-world/privacy/webrtc-shield.js",
+        "main-world/privacy/fingerprint-shield.js",
+        "main-world/privacy/domrect-shield.js",
+        "main-world/privacy/font-shield.js",
+        "main-world/privacy/anti-adblock-defuser.js",
+        "main-world/navigation/popup-guard.js",
+        "main-world/navigation/redirect-guard.js",
+        "main-world/navigation/history-guard.js",
+        "main-world/navigation/permission-guard.js",
+        "main-world/navigation/service-worker-guard.js",
+        "main-world/network/request-tracker.js",
+        "main-world/network/fetch-guard.js",
+        "main-world/network/xhr-guard.js",
+        "main-world/network/websocket-guard.js",
+        "main-world/network/beacon-guard.js",
+        "main-world/dom/element-guard.js",
+        "main-world/dom/click-guard.js",
+        "main-world/dom/clipboard-guard.js",
+        "main-world/dom/keystroke-guard.js",
+        "main-world/streaming/video-guard.js",
+        "main-world/streaming/fallback-player.js",
+        "main-world/index.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "content/settings-bridge.js",
+        "content/stats-reporter.js",
+        "content/overlays/overlay-detector.js",
+        "content/cosmetic/generic-selectors.js",
+        "content/cosmetic/iframe-filter.js",
+        "content/cosmetic/site-rules/moviebox.js",
+        "content/cosmetic/element-tracker.js",
+        "content/cosmetic/cosmetic-cleaner.js",
+        "content/observer.js",
+        "content/index.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "rules_global",
+        "enabled": true,
+        "path": "rules/rules-global.json"
+      },
+      {
+        "id": "rules_streaming",
+        "enabled": true,
+        "path": "rules/rules-streaming.json"
+      }
+    ]
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "SentinelShield",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

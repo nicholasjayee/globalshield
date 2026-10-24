@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SentinelShield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="../icons/icon-32.png" alt="SentinelShield" class="brand-icon">
+      <h1>SentinelShield</h1>
+    </div>
+    <span id="mode-pill" class="mode-pill">Global Shield</span>
+  </header>
+
+  <div class="status-panel">
+    <div class="status-row">
+      <div class="site-info">
+        <span class="site-label">Site</span>
+        <span class="site-url" id="tab-url">—</span>
+      </div>
+      <div class="site-stats">
+        <span class="stat-badge page" id="tab-count">0 page</span>
+        <span class="stat-badge total" id="total">0 total</span>
+      </div>
+    </div>
+
+    <div class="status-row dns-row">
+      <span class="dns-label">DNS Response Check</span>
+      <span class="dns-pill verifying" id="dns-pill">Checking</span>
+    </div>
+  </div>
+
+  <div class="breakdown-section">
+    <div class="section-title">Events Blocked</div>
+    <ul class="categories">
+      <li data-cat="ad_requests">
+        <span class="cat-label"><span class="dot"></span>Ad Network Requests</span>
+        <span class="cat-val" id="cat-ad-requests">0</span>
+      </li>
+      <li data-cat="ad_elements">
+        <span class="cat-label"><span class="dot"></span>DOM Ad Elements</span>
+        <span class="cat-val" id="cat-ad-elements">0</span>
+      </li>
+      <li data-cat="trackers">
+        <span class="cat-label"><span class="dot"></span>Telemetry & Trackers</span>
+        <span class="cat-val" id="cat-trackers">0</span>
+      </li>
+      <li data-cat="fingerprinters">
+        <span class="cat-label"><span class="dot"></span>Hardware Fingerprinters</span>
+        <span class="cat-val" id="cat-fingerprinters">0</span>
+      </li>
+      <li data-cat="privacy">
+        <span class="cat-label"><span class="dot"></span>Privacy Lookups Blocked</span>
+        <span class="cat-val" id="cat-privacy">0</span>
+      </li>
+      <li data-cat="malicious">
+        <span class="cat-label"><span class="dot"></span>Redirects & Traps</span>
+        <span class="cat-val" id="cat-malicious">0</span>
+      </li>
+      <li data-cat="hijack">
+        <span class="cat-label"><span class="dot"></span>Hijacking & Clipper Traps</span>
+        <span class="cat-val" id="cat-hijack">0</span>
+      </li>
+      <li data-cat="private_network">
+        <span class="cat-label"><span class="dot"></span>Private-address Requests</span>
+        <span class="cat-val" id="cat-private-network">0</span>
+      </li>
+      <li data-cat="popups">
+        <span class="cat-label"><span class="dot"></span>Pop-unders & Windows</span>
+        <span class="cat-val" id="cat-popups">0</span>
+      </li>
+      <li data-cat="scripts">
+        <span class="cat-label"><span class="dot"></span>Ad Scripts Intercepted</span>
+        <span class="cat-val" id="cat-scripts">0</span>
+      </li>
+      <li data-cat="overlays">
+        <span class="cat-label"><span class="dot"></span>Deceptive Overlays</span>
+        <span class="cat-val" id="cat-overlays">0</span>
+      </li>
+    </ul>
+  </div>
+
+  <section class="protection-section" aria-label="Protection controls">
+    <div class="section-title">Protection Controls</div>
+    <label class="toggle-row">
+      <strong>Core network rules</strong>
+      <input type="checkbox" data-setting="networkFiltering">
+    </label>
+    <label class="toggle-row">
+      <strong>Streaming ad rules</strong>
+      <input type="checkbox" data-setting="streamingFiltering">
+    </label>
+    <label class="toggle-row">
+      <strong>Cosmetic cleanup</strong>
+      <input type="checkbox" data-setting="cosmeticFiltering">
+    </label>
+    <label class="toggle-row">
+      <strong>Navigation & page guards</strong>
+      <input type="checkbox" data-setting="pageGuards">
+    </label>
+    <label class="toggle-row">
+      <strong>Anti-fingerprinting</strong>
+      <input type="checkbox" data-setting="antiFingerprinting">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Cosmetic cleanup on this site</strong>
+      <input type="checkbox" id="site-cosmetic">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Page guards on this site</strong>
+      <input type="checkbox" data-site-feature="pageGuards">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Anti-fingerprinting on this site</strong>
+      <input type="checkbox" data-site-feature="antiFingerprinting">
+    </label>
+    <div id="site-controls-warning" class="setting-note warning" hidden></div>
+    <div id="network-warning" class="setting-note warning" hidden></div>
+    <div id="site-warning" class="setting-note warning" hidden></div>
+  </section>
+
+  <section class="protection-section" aria-label="Device access controls">
+    <div class="section-title">Block Site Access</div>
+    <label class="toggle-row">
+      <strong>Block camera</strong>
+      <input type="checkbox" data-setting="blockCamera">
+    </label>
+    <label class="toggle-row">
+      <strong>Block microphone</strong>
+      <input type="checkbox" data-setting="blockMicrophone">
+    </label>
+    <label class="toggle-row">
+      <strong>Block location</strong>
+      <input type="checkbox" data-setting="blockLocation">
+    </label>
+    <label class="toggle-row">
+      <strong>Block notifications</strong>
+      <input type="checkbox" data-setting="blockNotifications">
+    </label>
+    <label class="toggle-row">
+      <strong>Block advanced clipboard</strong>
+      <input type="checkbox" data-setting="blockClipboard">
+    </label>
+    <label class="toggle-row">
+      <strong>Bluetooth / USB / HID / Serial</strong>
+      <input type="checkbox" data-setting="blockBluetoothApis">
+    </label>
+    <button id="open-device-settings" class="settings-link">Settings</button>
+    <div class="subsection-title">Cookies</div>
+    <label class="toggle-row">
+      <strong>Session-only cookies</strong>
+      <input type="checkbox" data-setting="sessionOnlyCookies">
+    </label>
+    <div class="subsection-title">Allow on this site</div>
+    <div id="site-device-warning" class="setting-note warning" hidden></div>
+    <label class="toggle-row site-toggle">
+      <strong>Allow camera here</strong>
+      <input type="checkbox" data-site-feature="blockCamera">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Allow microphone here</strong>
+      <input type="checkbox" data-site-feature="blockMicrophone">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Allow location here</strong>
+      <input type="checkbox" data-site-feature="blockLocation">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Allow notifications here</strong>
+      <input type="checkbox" data-site-feature="blockNotifications">
+    </label>
+    <label class="toggle-row site-toggle">
+      <strong>Allow advanced clipboard here</strong>
+      <input type="checkbox" data-site-feature="blockClipboard">
+    </label>
+    <div id="device-warning" class="setting-note warning" hidden></div>
+  </section>
+
+  <div class="actions">
+    <button id="refresh">Refresh</button>
+    <button id="reset" class="danger">Reset Stats</button>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

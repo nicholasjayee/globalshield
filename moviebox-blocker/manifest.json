@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "MovieBox Hijack Blocker",
+  "version": "1.0.2",
+  "description": "Blocks pop-unders, click-hijack overlays, and ad scripts on movieboxhd.net and mzfi.me.",
+
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "*://*.movieboxhd.net/*",
+    "*://*.mzfi.me/*",
+    "*://*.aoneroom.com/*",
+    "*://*.pufted.com/*",
+    "*://*.medium-while.com/*",
+    "*://*.quizzical-topic.com/*",
+    "*://*.googletagmanager.com/*",
+    "*://*.google-analytics.com/*",
+    "*://*.doubleclick.net/*",
+    "*://*.googlesyndication.com/*",
+    "*://*.trasre.com/*"
+  ],
+
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ad_block_rules",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.movieboxhd.net/*",
+        "*://*.mzfi.me/*"
+      ],
+      "js": ["main-world.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://*.movieboxhd.net/*",
+        "*://*.mzfi.me/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "MovieBox Blocker"
+  }
+}

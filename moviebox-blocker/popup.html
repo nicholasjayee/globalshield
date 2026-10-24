@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body {
+      width: 240px;
+      margin: 0;
+      padding: 14px 16px 16px;
+      font: 13px/1.4 system-ui, -apple-system, sans-serif;
+      background: #101114;
+      color: #fff;
+    }
+    h1 { font-size: 14px; margin: 0 0 10px; font-weight: 700; }
+    .row {
+      display: flex; justify-content: space-between;
+      padding: 5px 0; border-bottom: 1px solid #ffffff14;
+    }
+    .row:last-of-type { border-bottom: 0; }
+    .n { color: #2ff58b; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .muted { color: #fff9; margin-top: 10px; font-size: 11px; }
+    button {
+      margin-top: 10px; width: 100%; padding: 7px;
+      background: #28292e; color: #fff; border: 0;
+      border-radius: 6px; cursor: pointer; font-size: 12px;
+    }
+    button:hover { background: #33343a; }
+  </style>
+</head>
+<body>
+  <h1>MovieBox Blocker</h1>
+  <div class="row"><span>Overlays removed</span><span class="n" id="overlays">0</span></div>
+  <div class="row"><span>Popups blocked</span><span class="n" id="popups">0</span></div>
+  <div class="row"><span>Scripts blocked</span><span class="n" id="scripts">0</span></div>
+  <div class="row"><span>Ads removed</span><span class="n" id="ads">0</span></div>
+  <button id="reset">Reset counters</button>
+  <p class="muted">Reload the tab after resetting.</p>
+  <script src="popup.js"></script>
+</body>
+</html>
